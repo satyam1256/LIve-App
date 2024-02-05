@@ -1,0 +1,28 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTSP Video Player</title>
+</head>
+<body>
+    <h1>RTSP Video Player</h1>
+    <img src="{{ url_for('video_feed') }}" alt="Video Stream">
+    <br>
+    <button onclick="controlVideo('play')">Play</button>
+    <button onclick="controlVideo('pause')">Pause</button>
+
+    <script>
+        function controlVideo(action) {
+            fetch(`/control/${action}`)
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    // Update the page or perform other actions based on the response
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
