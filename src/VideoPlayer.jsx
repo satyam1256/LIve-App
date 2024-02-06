@@ -22,6 +22,11 @@ const VideoPlayer = () => {
   };
 
   const handlePlayPauseClick = () => {
+    if (!rtspUrl) {
+      alert('Please provide an RTSP URL before playing/pausing.');
+      return;
+    }
+
     setIsPlaying(!isPlaying);
   };
 
@@ -58,7 +63,7 @@ const VideoPlayer = () => {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.header}>RTSP Video Player</h1>
+      {/* <h1 style={styles.header}>RTSP Video Player</h1> */}
       <div style={styles.inputContainer}>
         <input
           type="text"
