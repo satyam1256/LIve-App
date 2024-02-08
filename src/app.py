@@ -22,11 +22,11 @@ def get_task(video_id):
 @app.route('/video', methods=['POST'])
 def add_tasks():
     if request.method == "POST":
-        print(request)
+        # print(request)
         text = request.form['text']
         position = request.form['position']
         fontSize= request.form['fontSize']
-        response = video.create({'text': "text" , 'position': "position", 'size':"fontSize"})
+        response = video.create({'text': text , 'position': position, 'size':fontSize})
         return response, 201
 
 @app.route('/video/<string:video_id>/', methods=['PUT'])
