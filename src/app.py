@@ -27,7 +27,7 @@ def add_tasks():
         position = request.form['position']
         fontSize= request.form['fontSize']
         response = video.create({'text': text , 'position': position, 'size':fontSize})
-        return response, 201
+        return jsonify(response), 201
 
 @app.route('/video/<string:video_id>/', methods=['PUT'])
 def update_tasks(video_id):

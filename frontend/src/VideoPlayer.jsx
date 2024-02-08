@@ -11,7 +11,7 @@ const VideoPlayer = () => {
   const [newOverlay, setNewOverlay] = useState({
     text: '',
     position: 'top-left',
-    fontSize: 16,
+    fontSize: "16",
   });
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const VideoPlayer = () => {
 .catch((error) => {
   console.log(error);
 });
-      setNewOverlay({ text: '', position: 'top', fontSize: 16 });
+      setNewOverlay({ text: '', position: 'top', fontSize: '16' });
   };
 
   const renderTextOverlays = () => {
