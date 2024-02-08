@@ -54,6 +54,12 @@ const VideoPlayer = () => {
       data.append('text',newOverlay.text);
       data.append('position', newOverlay.position);
       data.append('fontSize', newOverlay.fontSize);
+  
+      // data.append('text', 'shubham kumar');
+      // data.append('position', 'right');
+      // data.append('fontSize', '102');
+      
+      console.log(data)
       let config = {
         method: 'post',
         maxBodyLength: Infinity,

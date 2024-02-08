@@ -14,13 +14,12 @@ class Video(object):
             "fontSize": "string",
         }
 
-        self.create_required_fields = ["text"]
+        self.create_required_fields = ["text", "position", "fontSize"]
         self.create_optional_fields = []
         self.update_required_fields = ["text", "position", "fontSize"]
         self.update_optional_fields = []
 
     def create(self, video):
-        self.validator.validate(video, self.fields, self.create_required_fields, self.create_optional_fields)
         res = self.db.insert(video, self.collection_name)
         return "Inserted Id " + res
 
@@ -31,7 +30,7 @@ class Video(object):
         return self.db.find_by_id(id, self.collection_name)
 
     def update(self, id, video):
-        self.validator.validate(video, self.fields, self.update_required_fields, self.update_optional_fields)
+        # self.validator.validate(video, self.fields, self.update_required_fields, self.update_optional_fields)
         return self.db.update(id, video, self.collection_name)  # Pass the collection_name here
 
     def delete(self, id):
