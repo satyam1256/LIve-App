@@ -1,72 +1,73 @@
-# Getting Started with Create React App
+## Model Based Validator design for Flask (Python) and Mongo DB
+#### Model based custom validation for flask (python). Use Flask server and mongo db. Integrate with any SPA API development.  
+<p align="center">
+  <img width="340" height="160" src="https://miro.medium.com/max/1266/1*vB-cUmm1_dBBt-4JtL0u5g.jpeg">
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Create [virtual environment]('https://docs.python.org/3/library/venv.html) and install requirements 
+```sh
+pip install -r requirements.txt
+```
+### Configure Database
+#### From [db_config.json](src/db_config.json) configure datbase url, name, user and password 
+```json
+ {
+   "db": {
+            "url" : "mongodb://localhost:27017/",
+            "name" :"db_name",  
+            "user" :"",
+            "password" :""
+    }
+ }
+``` 
 
-## Available Scripts
+## In model update collection name and desire fields name and fields type. For example see todo [model](src/models/todo.py) file
+#### From [model](src/models) folder write your individual model and configure db collection name, fields name and fields type
+#### Example
+##### In todo [model](src/models/todo.py) update collection name, fields name and fields type
+```py
+collection_name = 'todos'   # collection name
+fields = {   
+    "title"     : "string",
+    "body"      : "string",
+    "created"   : "datatime"
+} 
+```
 
-In the project directory, you can run:
+##### Update required fields, optional fields from todo [model](src/models/todo.py)
+```py
+create_required_fields = []  # example create_required_fields = ["title", "body"]
+create_optional_fields = []  # example create_required_fields = ["created"]
+update_required_fields = []
+update_optional_fields = []
+```
+#### Example 
+```py
+create_required_fields = ["title", "body"] 
+create_optional_fields = []  
+update_required_fields = ["title", "body"]
+update_optional_fields = []
+```
+#### In [Database](src/factory/database.py) insert, find , find_by_id, update and delete methods are generalize methods.  
+#### Those methods are call from [model](src/models) 
+- `insert` method store data to database after confirm validation from model 
+- `find` method retries all data from mongo database 
+- `find_by_id` method retries back a single search data
+- `update` method store updated data to database with corresponding id 
+- and `delete` method delete data from database with corresponding id 
 
-### `npm start`
+#### List of Todo Routes
+| Request | Endpoint |  Details |
+| --- | --- | --- |
+| `GET` | `http://127.0.0.1:5000/todos`| Get All|
+| `GET` | `http://127.0.0.1:5000/todos/todo_id`| Get Single Id|
+| `POST` | `http://127.0.0.1:5000/todos`| Insert One|
+| `PUT` | `http://127.0.0.1:5000/todos/todo_id`| Update One|
+| `DELETE` | `http://127.0.0.1:5000/todos/todo_id`| Delete One|
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- To see route list type cli `flask routes`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# LIve-App
-# LIve-App
+### Lets run the App
+```sh
+python app.py 
+```
