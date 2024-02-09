@@ -39,6 +39,7 @@ const VideoPlayer = () => {
     try {
       const response = await fetch('http://127.0.0.1:5001/video');
       const data = await response.json();
+      console.log(data)
       setOverlays(data);
     } catch (error) {
       console.error('Error fetching overlays:', error);
@@ -126,7 +127,7 @@ const VideoPlayer = () => {
         <ul>
           {overlays.map((overlay, index) => (
             <li key={index}>
-              {overlay.text} - {overlay.position} - {overlay.fontSize}px
+              {overlay.text} - {overlay.position} - {overlay.size}px
             </li>
           ))}
         </ul>
